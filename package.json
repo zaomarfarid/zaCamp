@@ -1,5 +1,5 @@
 {
-  "name": "zaCamp",
+  "name": "zacamp",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -12,6 +12,8 @@
   "dependencies": {
     "ejs": "^3.1.5",
     "express": "^4.17.1",
-    "mongo": "^0.1.0"
-  }
+    "method-override": "^3.0.0",
+    "mongoose": "^5.11.11"
+  },
+  "devDependencies": {}
 }
