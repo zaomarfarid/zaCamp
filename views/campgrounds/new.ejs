@@ -1,7 +1,7 @@
 <% layout('/layouts/boilerplate') %>
 <div class="row">
     <h1 class="text-center">New Campground</h1>
-    <div class="col-6 offset-3">
+    <div class="col-lg-6 offset-lg-3">
         <form action="/campgrounds" method="post" class="validated-form" novalidate>
             <div class="mb-3">
                 <label for="title" class="form-label">Title</label>
@@ -22,15 +22,15 @@
                 <label for="price" class="form-label">Campground Price</label>
                 <div class="input-group">
                     <span class="input-group-text" id="price-panel">$</span>
-                    <input type="number" name="campground[price]" id="price" class="form-control" placeholder="0.00" aria-label="price"
-                    aria-describedby="price-label" required>
+                    <input type="number" name="campground[price]" id="price" class="form-control" placeholder="0.00"
+                        aria-label="price" aria-describedby="price-label" required>
                     <div class="valid-feedback">Looks good!</div>
                 </div>
             </div>
             <div class="mb-3">
                 <label for="description" class="form-label">Description</label>
-                <textarea type="text" class="form-control" id="description"
-                name="campground[description]" required></textarea>
+                <textarea type="text" class="form-control" id="description" name="campground[description]"
+                    required></textarea>
                 <div class="valid-feedback">Looks good!</div>
             </div>
             <div class="mb-3">

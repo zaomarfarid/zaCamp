@@ -8,6 +8,7 @@ const ExpressError = require('./utils/ExpressError');
 const methodOverride = require('method-override');
 const Campground = require('./models/campground');
 const Review = require('./models/review');
+const port = 3000;
 
 // connect to mongoDB using mongooose
 mongoose.connect('mongodb://localhost:27017/za-camp', {
@@ -26,6 +27,7 @@ app.engine('ejs', ejsMate);
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
+// to parse req.body
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
 
@@ -56,18 +58,18 @@ const validateReview = (req, res, next) => {
 
 // home page
 app.get('/', (req, res) => {
-    res.render('home');
+    res.render('home', { title: '' });
 });
 
 // get route to view all campgrounds  
 app.get('/campgrounds', catchAsync(async (req, res) => {
     const campgrounds = await Campground.find();
-    res.render('campgrounds/index', { campgrounds });
+    res.render('campgrounds/index', { campgrounds, title: ' - Campgrounds' });
 }));
 
 // get route to add new campground  
 app.get('/campgrounds/new', (req, res) => {
-    res.render('campgrounds/new');
+    res.render('campgrounds/new', { title: ' - New' });
 });
 
 // post route redirects to the NEW added campground based on its id
@@ -81,14 +83,13 @@ app.post('/campgrounds', validateCampground, catchAsync(async (req, res, next) =
 // get route to show campground by id  
 app.get('/campgrounds/:id', catchAsync(async (req, res) => {
     const campground = await Campground.findById(req.params.id).populate('reviews');
-    console.log(campground)
-    res.render('campgrounds/show', { campground });
+    res.render('campgrounds/show', { campground, title: ` - ${campground.title}` });
 }));
 
 // get route to edit campground by id  
 app.get('/campgrounds/:id/edit', catchAsync(async (req, res) => {
     const campground = await Campground.findById(req.params.id);
-    res.render('campgrounds/edit', { campground });
+    res.render('campgrounds/edit', { campground, title: ' - Edit' });
 }));
 
 // put route to edit campground by id  
@@ -135,6 +136,6 @@ app.use((err, req, res, next) => {
     res.status(err.statusCode).render('error', { err });
 })
 
-app.listen(3000, () => {
-    console.log('Serving on port 3000');
+app.listen(port, () => {
+    console.log(`listening at http://localhost:${port}`);
 });
