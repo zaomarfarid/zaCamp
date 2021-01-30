@@ -48,10 +48,13 @@ const sessionConfig = {
         maxAge: 1000 * 60 * 60 * 24 * 7
     }
 }
+
 app.use(session(sessionConfig));
 app.use(flash());
 
+// locals 
 app.use((req, res, next) => {
+    res.locals.title = '';
     res.locals.success = req.flash('success');
     res.locals.error = req.flash('error');
     next();
@@ -63,7 +66,7 @@ app.use('/campgrounds/:id/reviews', reviews);
 
 // home page
 app.get('/', (req, res) => {
-    res.render('home', { title: '' });
+    res.render('home');
 });
 
 // all other routes 
@@ -75,7 +78,7 @@ app.all('*', (req, res, next) => {
 app.use((err, req, res, next) => {
     !err.statusCode && (err.statusCode = '500');
     !err.message && (err.message = 'Oh No, Something went wrong');
-    res.status(err.statusCode).render('error', { err });
+    res.status(err.statusCode).render('error', { err, title: ' - Error' });
 })
 
 app.listen(port, () => {
