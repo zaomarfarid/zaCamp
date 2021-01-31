@@ -10,11 +10,11 @@ const LocalStrategy = require('passport-local');
 
 const ExpressError = require('./utils/ExpressError');
 
-const campgrounds = require('./routes/campgrounds');
-const reviews = require('./routes/reviews')
+const campgroundRoutes = require('./routes/campgrounds');
+const reviewRoutes = require('./routes/reviews');
+const userRoutes = require('./routes/users');
 
 const User = require('./models/user');
-const { getMaxListeners } = require('./models/user');
 
 const port = 3000;
 
@@ -79,8 +79,9 @@ app.get('/fakeUser', async (req, res) => {
 });
 
 // importing routes
-app.use('/campgrounds', campgrounds);
-app.use('/campgrounds/:id/reviews', reviews);
+app.use('/campgrounds', campgroundRoutes);
+app.use('/campgrounds/:id/reviews', reviewRoutes);
+app.use('/', userRoutes);
 
 // home page
 app.get('/', (req, res) => {
