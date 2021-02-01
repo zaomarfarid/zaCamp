@@ -36,6 +36,4 @@ router.get('/logout', (req, res) => {
     res.redirect('/campgrounds');
 });
 
-
-
 module.exports = router;
