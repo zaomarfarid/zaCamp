@@ -13,7 +13,6 @@ router.post('/register', async (req, res) => {
         const { email, username, password } = req.body;
         const user = new User({ email, username });
         await User.register(user, password);
-        console.log(user);
         req.flash('success', 'Welcome to zaCamp!');
         res.redirect('/');
     } catch (error) {
