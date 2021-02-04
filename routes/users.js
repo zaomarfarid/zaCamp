@@ -4,11 +4,9 @@ const router = express.Router();
 
 const users = require('../controllers/users')
 
-router.get('/register', (req, res) => {
-    res.render('users/register');
-});
+router.get('/register', users.renderRegister);
 
-router.post('/register', users.renderRegister);
+router.post('/register', users.register);
 
 router.get('/login', users.renderLogin);
 
