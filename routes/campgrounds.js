@@ -12,11 +12,7 @@ router.route('/')
     .get(catchAsync(campgrounds.index))
 
     // post route redirects to the NEW added campground based on its id
-    // .post(isLoggedIn, validateCampground, catchAsync(campgrounds.createCampground));
-    .post(upload.single('image'), (req, res) => {
-        console.log(req.body, req.file);
-        res.send('it worked');
-    });
+    .post(isLoggedIn, upload.array('image'), validateCampground, catchAsync(campgrounds.createCampground));
 
 // get route to add new campground  
 router.get('/new', isLoggedIn, campgrounds.renderNewForm);
