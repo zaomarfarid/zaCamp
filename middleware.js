@@ -26,6 +26,15 @@ module.exports.validateReview = (req, res, next) => {
     }
 }
 
+module.exports.isCampground = async (req, res, next) => {
+    const campground = await Campground.findById(req.params.id);
+    if (!campground) {
+        req.flash('error', 'Cannot find that campground!');
+        return res.redirect('/campgrounds');
+    }
+    next();
+}
+
 module.exports.isLoggedIn = (req, res, next) => {
     if (!req.isAuthenticated()) {
         req.session.returnTo = req.originalUrl;

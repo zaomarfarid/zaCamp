@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const Review = require('./review');
 const Schema = mongoose.Schema;
+const { cloudinary } = require('../cloudinary');
 
 const CampgroundSchema = new Schema({
     title: String,
@@ -25,8 +26,11 @@ const CampgroundSchema = new Schema({
     ]
 });
 
-CampgroundSchema.post('findOneAndDelete', async deletedCampground => {
+CampgroundSchema.post('findOneAndDelete' || 'deleteMany', async deletedCampground => {
     if (deletedCampground) {
+        // deletedCampground.images.forEach(async image => {
+        //     await cloudinary.uploader.destroy(image.filename);
+        // });
         await Review.deleteMany({ _id: { $in: deletedCampground.reviews } });
     }
 });
