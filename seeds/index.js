@@ -30,11 +30,11 @@ const seedDB = async () => {
             price,
             images: [
                 {
-                    url: 'https://res.cloudinary.com/zaomarfarid/image/upload/v1612725620/zaCamp/jeu5kpbeeou0wa4dk9ob.jpg',
+                    url: 'https://res.cloudinary.com/zaomarfarid/image/upload/v1612787705/zaCamp/camping-namibia-overland1_hvuod2.jpg',
                     filename: 'zaCamp/jeu5kpbeeou0wa4dk9ob'
                 },
                 {
-                    url: 'https://res.cloudinary.com/zaomarfarid/image/upload/v1612725619/zaCamp/oi2lh8ekqfivsdldzy1c.jpg',
+                    url: 'https://res.cloudinary.com/zaomarfarid/image/upload/v1612787706/zaCamp/Camping-at-White-River-Campground-e1527786151787_ufbl2p.jpg',
                     filename: 'zaCamp/oi2lh8ekqfivsdldzy1c'
                 }
             ]
