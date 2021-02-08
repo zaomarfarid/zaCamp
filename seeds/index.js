@@ -28,6 +28,10 @@ const seedDB = async () => {
             title: `${sample(descriptors)} ${sample(places)}`,
             description: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Possimus accusantium natus magnam quasi sunt unde animi dolorum ex alias, esse molestiae, autem voluptatum enim minima velit corrupti ab! Commodi, iure.',
             price,
+            geometry: {
+                "type": "Point",
+                "coordinates": [-122.3301, 47.6038]
+            },
             images: [
                 {
                     url: 'https://res.cloudinary.com/zaomarfarid/image/upload/v1612787705/zaCamp/camping-namibia-overland1_hvuod2.jpg',
