@@ -3483,15 +3483,6 @@ module.exports = [
         state: "Michigan",
     },
     {
-        city: "O'Fallon",
-        growth_from_2000_to_2013: "62.6%",
-        latitude: 38.8106075,
-        longitude: -90.69984769999999,
-        population: "82809",
-        rank: "388",
-        state: "Missouri",
-    },
-    {
         city: "Johns Creek",
         growth_from_2000_to_2013: "36.5%",
         latitude: 34.0289259,
