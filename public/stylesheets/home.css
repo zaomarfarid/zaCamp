@@ -9,7 +9,7 @@ body {
 }
 
 .cover-container {
-    max-width: 60vw;
+    max-width: 900vw;
 }
 
 .nav-link {
@@ -34,4 +34,10 @@ body {
 .btn-secondary:hover {
     color: #333 !important;
     text-shadow: none;
+}
+
+@media (min-width: 768px) {
+    .cover-container {
+        max-width: 60vw;
+    }
 }
