@@ -4,7 +4,7 @@ const router = express.Router();
 
 const users = require('../controllers/users')
 
-router.route('/regiter')
+router.route('/register')
     .get(users.renderRegister)
     .post(users.register);
 

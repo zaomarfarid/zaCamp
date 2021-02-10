@@ -48,12 +48,14 @@ CampgroundSchema.virtual('properties.popUpMarkup').get(function () {
     <p>${this.description.substring(0, 20)}...</p>`;
 });
 
-CampgroundSchema.post('findOneAndDelete' || 'deleteMany', async deletedCampground => {
-    if (deletedCampground) {
+CampgroundSchema.post('findOneAndDelete', async deletedCampground => {
+    if (deletedCampground.reviews) {
+        await Review.deleteMany({ _id: { $in: deletedCampground.reviews } });
+    }
+    if (deletedCampground.images) {
         deletedCampground.images.forEach(async image => {
             await cloudinary.uploader.destroy(image.filename);
         });
-        await Review.deleteMany({ _id: { $in: deletedCampground.reviews } });
     }
 });
 
