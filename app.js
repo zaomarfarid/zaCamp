@@ -11,6 +11,7 @@ const session = require('express-session');
 const flash = require('connect-flash');
 const passport = require('passport');
 const LocalStrategy = require('passport-local');
+const mongoSanitize = require('express-mongo-sanitize');
 
 const ExpressError = require('./utils/ExpressError');
 
@@ -42,10 +43,13 @@ app.set('views', path.join(__dirname, 'views'));
 
 // to parse req.body
 app.use(express.urlencoded({ extended: true }));
+
 app.use(methodOverride('_method'));
 
 // serve static assets
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.use(mongoSanitize());
 
 const sessionConfig = {
     secret: 'thisshouldbeabettersecret!',
@@ -75,7 +79,7 @@ app.use((req, res, next) => {
     res.locals.success = req.flash('success');
     res.locals.error = req.flash('error');
     next();
-})
+});
 
 // importing routes
 app.use('/campgrounds', campgroundRoutes);
@@ -90,14 +94,14 @@ app.get('/', (req, res) => {
 // all other routes 
 app.all('*', (req, res, next) => {
     next(new ExpressError('Page Not Found', 404));
-})
+});
 
 // error handler
 app.use((err, req, res, next) => {
     !err.statusCode && (err.statusCode = '500');
     !err.message && (err.message = 'Oh No, Something went wrong');
     res.status(err.statusCode).render('error', { err, title: ' - Error' });
-})
+});
 
 app.listen(port, () => {
     console.log(`listening at http://localhost:${port}`);
