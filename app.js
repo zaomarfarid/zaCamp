@@ -23,7 +23,7 @@ const userRoutes = require('./routes/users');
 
 const User = require('./models/user');
 
-const port = 3000;
+const port = process.env.PORT || 3000;
 const dbUrl = process.env.DB_URL || 'mongodb://localhost:27017/za-camp';
 
 // connect to mongoDB using mongooose
