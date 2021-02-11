@@ -13,6 +13,7 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local');
 const mongoSanitize = require('express-mongo-sanitize');
 const helmet = require('helmet');
+const MongoStore = require('connect-mongo')(session);
 
 const ExpressError = require('./utils/ExpressError');
 
@@ -22,10 +23,11 @@ const userRoutes = require('./routes/users');
 
 const User = require('./models/user');
 
-const port = 3000;
+const port = process.env.PORT || 3000;
+const dbUrl = process.env.DB_URL || 'mongodb://localhost:27017/za-camp';
 
 // connect to mongoDB using mongooose
-mongoose.connect('mongodb://localhost:27017/za-camp', {
+mongoose.connect(dbUrl, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useCreateIndex: true,
@@ -42,9 +44,20 @@ app.engine('ejs', ejsMate);
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
+const secret = process.env.SECRET || 'thisshouldbeabettersecret!'
+
+const store = new MongoStore({
+    url: dbUrl,
+    secret,
+    touchAfter: 24 * 60 * 60
+});
+
+store.on('error', e => { console.log('SESSION STORE ERROR', e) });
+
 const sessionConfig = {
+    store,
     name: 'session',
-    secret: 'thisshouldbeabettersecret!',
+    secret,
     resave: false,
     saveUninitialized: true,
     cookie: {
