@@ -12,6 +12,7 @@ const flash = require('connect-flash');
 const passport = require('passport');
 const LocalStrategy = require('passport-local');
 const mongoSanitize = require('express-mongo-sanitize');
+const helmet = require('helmet');
 
 const ExpressError = require('./utils/ExpressError');
 
@@ -41,16 +42,6 @@ app.engine('ejs', ejsMate);
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
-// to parse req.body
-app.use(express.urlencoded({ extended: true }));
-
-app.use(methodOverride('_method'));
-
-// serve static assets
-app.use(express.static(path.join(__dirname, 'public')));
-
-app.use(mongoSanitize());
-
 const sessionConfig = {
     name: 'session',
     secret: 'thisshouldbeabettersecret!',
@@ -66,6 +57,17 @@ const sessionConfig = {
 
 app.use(session(sessionConfig));
 app.use(flash());
+
+// to parse req.body
+app.use(express.urlencoded({ extended: true }));
+
+app.use(methodOverride('_method'));
+
+// serve static assets
+app.use(express.static(path.join(__dirname, 'public')));
+
+app.use(mongoSanitize());
+app.use(helmet({ contentSecurityPolicy: false }));
 
 app.use(passport.initialize());
 app.use(passport.session());
