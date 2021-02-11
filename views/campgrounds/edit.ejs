@@ -39,14 +39,16 @@
                             required><%= campground.description %></textarea>
                         <div class="valid-feedback">Looks good!</div>
                     </div>
-                    <div class="mb-3">
+                    <div class="mb-3 row">
                         <% campground.images.forEach((img, i) => { %>
-                        <img src="<%= img.thumbnail %>" class="img-thumbnail" alt="">
-                        <div class="form-check-inline">
-                            <input type="checkbox" id="image-<%= i %>" name="deleteImages[]"
-                                value="<%= img.filename %>">
+                        <div class="col-md text-md-center">
+                            <img src="<%= img.thumbnail %>" class="img-thumbnail" alt="">
+                            <div class="form-check-inline">
+                                <input type="checkbox" id="image-<%= i %>" name="deleteImages[]"
+                                    value="<%= img.filename %>">
+                                <label for="image-<%= i %>">Delele?</label>
+                            </div>
                         </div>
-                        <label for="image-<%= i %>">Delele?</label>
                         <% }) %>
                     </div>
                     <div class="mb-3">
